@@ -23,6 +23,10 @@ namespace Configuration
             envVars["REDIS_CONNECTION_STRING"] 
             ?? throw new InvalidOperationException("REDIS_CONNECTION_STRING environment variable is not set");
 
+        public static string redisCacheKey =>
+            envVars["REDIS_CACHE_KEY"] 
+            ?? throw new InvalidOperationException("REDIS_CACHE_KEY environment variable is not set");
+
         public static void ValidateConfiguration()
         {
             try
@@ -30,6 +34,7 @@ namespace Configuration
                 _ = environment;
                 _ = sqlConnectionString;
                 _ = redisConnectionString; 
+                _ = redisCacheKey; 
                 Console.WriteLine("✓ Configuration validation passed");
             }
             catch (InvalidOperationException ex)
