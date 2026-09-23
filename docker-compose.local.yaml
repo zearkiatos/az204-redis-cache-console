@@ -1,0 +1,13 @@
+services:
+  mssql:
+    build:
+      context: .
+      dockerfile: mssql.Dockerfile
+    env_file: mssql.env
+    volumes:
+      - ./data/mssql:/var/opt/mssql/data
+    platform: linux/amd64
+    ports:
+      - "1434:1433"
+    security_opt:
+      - no-new-privileges:true
