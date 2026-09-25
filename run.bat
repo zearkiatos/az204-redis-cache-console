@@ -9,8 +9,53 @@ if "%1"=="run" (
     goto end
 )
 
+if "%1"=="local" (
+    dotnet run --project RedisCacheConsole.csproj
+    goto end
+)
+
 if "%1"=="build" (
     dotnet build RedisCacheConsole.csproj
+    goto end
+)
+
+if "%1"=="docker-up" (
+    docker-compose up
+    goto end
+)
+
+if "%1"=="docker-down" (
+    docker-compose down
+    goto end
+)
+
+if "%1"=="podman-up" (
+    podman-compose up
+    goto end
+)
+
+if "%1"=="podman-down" (
+    podman-compose down
+    goto end
+)
+
+if "%1"=="docker-local-up" (
+    docker-compose -f docker-compose.local.yaml up
+    goto end
+)
+
+if "%1"=="docker-local-down" (
+    docker-compose -f docker-compose.local.yaml down
+    goto end
+)
+
+if "%1"=="podman-local-up" (
+    podman-compose -f docker-compose.local.yaml up
+    goto end
+)
+
+if "%1"=="podman-local-down" (
+    podman-compose -f docker-compose.local.yaml down
     goto end
 )
 
@@ -20,6 +65,15 @@ if "%1"=="" (
     echo Commands:
     echo   run       - Build and run the console application
     echo   build     - Build the console application only
+    echo   docker-local-up   - Start the local Docker environment
+    echo   docker-local-down - Stop the local Docker environment
+    echo   podman-local-up   - Start the local Podman environment
+    echo   podman-local-down - Stop the local Podman environment
+    echo   docker-up   - Start the Docker environment
+    echo   docker-down - Stop the Docker environment
+    echo   podman-up   - Start the Podman environment
+    echo   podman-down - Stop the Podman environment
+    echo   local     - Build and run the console application locally
     goto end
 )
 
