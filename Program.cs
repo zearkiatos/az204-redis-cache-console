@@ -19,7 +19,7 @@ class Program
             var cache = redis.GetDatabase();
             Console.WriteLine("Connection to Azure Cache for Redis established.\n");
             
-            string cacheKey = "AdventureWorks_ProductList";
+            string cacheKey = AppConfiguration.redisCacheKey;
 
             Console.WriteLine("Fetching data directly from Azure SQL Database...");
             Stopwatch stopwatch = Stopwatch.StartNew();

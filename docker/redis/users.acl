@@ -1,0 +1,3 @@
+user default off
+
+user app on >Passw0rd_2026 ~app:* +get +set +del +exists +expire +ttl +pttl +mget +mset
