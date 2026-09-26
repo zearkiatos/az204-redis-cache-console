@@ -4,6 +4,9 @@ run:
 build:
 	dotnet build RedisCacheConsole.csproj
 
+test:
+	dotnet test RedisCacheConsole.slnx
+
 docker-local-up:
 	docker-compose -f docker-compose.local.yaml up
 

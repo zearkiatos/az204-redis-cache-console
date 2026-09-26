@@ -10,7 +10,15 @@
   <ItemGroup>
     <PackageReference Include="dotenv.net" Version="4.2.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="StackExchange.Redis" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Exclude the test project's sources from this project's default recursive glob -->
+    <Compile Remove="tests/**" />
+    <EmbeddedResource Remove="tests/**" />
+    <None Remove="tests/**" />
   </ItemGroup>
 
 </Project>
