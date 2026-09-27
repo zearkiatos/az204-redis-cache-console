@@ -4,27 +4,39 @@ namespace Configuration
 {
     public static class AppConfiguration
     {
-        private static IDictionary<string, string> envVars = null;
-        static AppConfiguration()
+        internal static Func<DotEnvOptions, IDictionary<string, string>> ReadEnv = DotEnv.Read;
+        internal static Action<DotEnvOptions> LoadEnv = DotEnv.Load;
+
+        private static IDictionary<string, string>? envVars;
+
+        private static IDictionary<string, string> EnvVars => envVars ??= Initialize();
+
+        private static IDictionary<string, string> Initialize()
         {
-            DotEnv.Load();
-            envVars = DotEnv.Read();
+            var environment = Environment.GetEnvironmentVariable("ENVIRONMENT");
+            var envFile = environment == "test" ? ".env.test" : ".env";
+            var options = new DotEnvOptions(envFilePaths: new[] { envFile });
+            LoadEnv(options);
+            return ReadEnv(options);
         }
 
+        // Solo para tests: fuerza a que la próxima lectura re-ejecute Initialize().
+        internal static void ResetForTests() => envVars = null;
+
         public static string environment => 
-            envVars["ENVIRONMENT"] 
+            EnvVars["ENVIRONMENT"] 
             ?? throw new InvalidOperationException("ENVIRONMENT environment variable is not set");
 
         public static string sqlConnectionString => 
-            envVars["SQL_CONNECTION_STRING"] 
+            EnvVars["SQL_CONNECTION_STRING"] 
             ?? throw new InvalidOperationException("SQL_CONNECTION_STRING environment variable is not set");
 
         public static string redisConnectionString =>
-            envVars["REDIS_CONNECTION_STRING"] 
+            EnvVars["REDIS_CONNECTION_STRING"] 
             ?? throw new InvalidOperationException("REDIS_CONNECTION_STRING environment variable is not set");
 
         public static string redisCacheKey =>
-            envVars["REDIS_CACHE_KEY"] 
+            EnvVars["REDIS_CACHE_KEY"] 
             ?? throw new InvalidOperationException("REDIS_CACHE_KEY environment variable is not set");
 
         public static void ValidateConfiguration()
