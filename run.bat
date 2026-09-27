@@ -14,6 +14,30 @@ if "%1"=="local" (
     goto end
 )
 
+if "%1"=="test" (
+    ENVIRONMENT=test dotnet test RedisCacheConsole.slnx
+    goto end
+)
+
+if "%1"=="test-coverage" (
+    	ENVIRONMENT=test dotnet test tests/RedisCacheConsole.Tests/RedisCacheConsole.Tests.csproj \
+        /p:CollectCoverage=true \
+        /p:CoverletOutputFormat=cobertura \
+        /p:CoverletOutput=./TestResults/ \
+        /p:Threshold=60 \
+        /p:ThresholdType=line \
+        /p:ThresholdStat=total \
+        /p:Exclude="[xunit.*]*"
+    goto end
+)
+
+if "%1"=="test-coverage-report" (
+        dotnet reportgenerator -reports:"tests/RedisCacheConsole.Tests/TestResults/coverage.cobertura.xml" -targetdir:"coveragereport" -reporttypes:Html
+        timeout /t 1
+        start coveragereport/index.html
+        goto end
+)
+
 if "%1"=="build" (
     dotnet build RedisCacheConsole.csproj
     goto end
@@ -74,6 +98,9 @@ if "%1"=="" (
     echo   podman-up   - Start the Podman environment
     echo   podman-down - Stop the Podman environment
     echo   local     - Build and run the console application locally
+    echo   test      - Run the unit tests
+    echo   test-coverage - Run the unit tests with code coverage
+    echo   test-coverage-report - Generate the test coverage report
     goto end
 )
 

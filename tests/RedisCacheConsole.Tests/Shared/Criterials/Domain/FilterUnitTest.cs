@@ -2,7 +2,7 @@ using RedisCacheConsole.Shared.Criterials.Domain;
 
 namespace RedisCacheConsole.Tests.Shared.Criterials.Domain
 {
-    public class FilterTests
+    public class FilterUnitTest
     {
         [Fact]
         public void Given_A_Filter_Constructor_When_InitializedWithValues_Then_PropertiesAreSet()

@@ -3,7 +3,7 @@ using RedisCacheConsole.Shared.Criterials.Domain;
 
 namespace RedisCacheConsole.Tests.Shared.Criterials.Domain
 {
-    public class CriterialTests
+    public class CriterialUnitTest
     {
         [Fact]
         public void Given_A_Criterial_Constructor_When_InitializedWithNullFilters_Then_FiltersDefaultToEmptyList()
