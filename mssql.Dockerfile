@@ -7,9 +7,11 @@ COPY --chown=mssql:root db/scripts/restore.sql /usr/config/scripts/restore.sql
 COPY --chown=mssql:root db/backup/AdventureWorksLT2025.bak /var/opt/mssql/backup/AdventureWorksLT2025.bak
 RUN chmod +x /usr/config/entrypoint.sh
 
-HEALTHCHECK --interval=30s --timeout=10s --start-period=45s --retries=5 \
-    CMD /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -C -Q "SELECT 1" 2>/dev/null \
-        || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$MSSQL_SA_PASSWORD" -Q "SELECT 1" 2>/dev/null \
-        || exit 1
+# Healthy solo cuando AdventureWorksLT2025 ya fue restaurada, no solo cuando SQL Server acepta conexiones.
+HEALTHCHECK --interval=10s --timeout=10s --start-period=60s --retries=30 \
+    CMD SQLCMD=/opt/mssql-tools18/bin/sqlcmd; \
+        [ -x "$SQLCMD" ] || SQLCMD=/opt/mssql-tools/bin/sqlcmd; \
+        SQLCMDPASSWORD="$MSSQL_SA_PASSWORD" "$SQLCMD" -S localhost -U sa -C -b -l 5 \
+        -d AdventureWorksLT2025 -Q "SET NOCOUNT ON; SELECT 1;" >/dev/null 2>&1 || exit 1
 
 ENTRYPOINT ["/usr/config/entrypoint.sh"]

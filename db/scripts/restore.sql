@@ -6,8 +6,8 @@ BEGIN
     RESTORE DATABASE [AdventureWorksLT2025]
     FROM DISK = '/var/opt/mssql/backup/AdventureWorksLT2025.bak'
     WITH
-        MOVE 'AdventureWorksLT2025_Data' TO '/var/opt/mssql/data/AdventureWorksLT2025_Data.mdf',
-        MOVE 'AdventureWorksLT2025_Log' TO '/var/opt/mssql/data/AdventureWorksLT2025_Log.ldf',
+        MOVE 'AdventureWorksLT2022_Data' TO '/var/opt/mssql/data/AdventureWorksLT2025_Data.mdf',
+        MOVE 'AdventureWorksLT2022_Log' TO '/var/opt/mssql/data/AdventureWorksLT2025_Log.ldf',
         FILE = 1,
         NOUNLOAD,
         STATS = 5;
