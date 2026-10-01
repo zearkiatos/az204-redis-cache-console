@@ -7,20 +7,21 @@ namespace RedisCacheConsole.Product.Infrastructure.Repository
     {
         private readonly HashSet<(string Key, string Value)> products = new HashSet<(string Key, string Value)>();
 
-        public string? get(string key)
+        public Task<string?> Get(string key)
         {
             var product = products.FirstOrDefault(p => p.Key == key);
-            return product.Value;
+            return Task.FromResult(product.Value);
         }
 
-        public void save(string key, string value)
+        public Task Save(string key, string value)
         {
-            products.Add((Key: key, Value: value));
+            this.products.Add((Key: key, Value: value));
+            return Task.CompletedTask;
         }
 
         public void Setup(string connectionString)
         {
-            // No setup needed for in-memory cache repository
+            // No setup needed for in-memory repository
         }
     }
 }
