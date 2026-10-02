@@ -3,6 +3,7 @@ using Configuration;
 namespace RedisCacheConsole.Tests.Configuration
 {
     
+    [Collection("AppConfiguration")]
     public class AppConfigurationUnitTest : IDisposable
     {
         public AppConfigurationUnitTest()

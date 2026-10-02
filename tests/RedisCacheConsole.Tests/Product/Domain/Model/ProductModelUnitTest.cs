@@ -12,7 +12,7 @@ namespace RedisCacheConsole.Tests.Product.Domain.Model
         {
             var name = faker.Commerce.ProductName();
             var priceList = faker.Random.Decimal(1000, 5000);
-            var productModel = new ProductModel(name: name, priceList: priceList);
+            var productModel = new ProductModel(name: name, listPrice: priceList);
 
             
             Assert.Equal(name, productModel.Name);

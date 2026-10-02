@@ -1,10 +1,12 @@
-
+using System.Threading.Tasks;
 namespace RedisCacheConsole.Product.Domain.Repository
 {
     public interface ProductCacheRepository
     {
-        void save(string key, string value);
+        Task Save(string key, string value);
 
-        string? get(string key);
+        Task<string?> Get(string key);
+
+        void Setup(string connectionString);
     }
 }

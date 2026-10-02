@@ -1,0 +1,49 @@
+services:
+  db:
+    container_name: mssql-test
+    build:
+      context: .
+      dockerfile: mssql.Dockerfile
+    env_file: mssql.env
+    volumes:
+      - ./data-test/mssql:/var/opt/mssql/data
+    platform: linux/amd64
+    ports:
+      - "1434:1433"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - test
+  cache:
+    build:
+      context: .
+      dockerfile: redis.Dockerfile
+    container_name: redis-test
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6380:6379"
+    volumes:
+      - ./data-test/redis:/data
+    networks:
+      - test
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "redis-cli",
+          "--user",
+          "app",
+          "--pass",
+          "Passw0rd_2026",
+          "PING"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+networks:
+  test:
+    driver: bridge
