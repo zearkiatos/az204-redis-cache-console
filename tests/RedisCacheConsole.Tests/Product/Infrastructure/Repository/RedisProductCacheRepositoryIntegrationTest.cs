@@ -14,7 +14,7 @@ namespace RedisCacheConsole.Tests.Product.Infrastructure.Repository
             var repository = new RedisProductCacheRepository();
             repository.Setup(AppConfiguration.redisConnectionString);
 
-            var key = "test-key";
+            var key = $"app:test:{Guid.NewGuid():N}";
             var value = "test-value";
 
             await repository.Save(key, value);
