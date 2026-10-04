@@ -10,5 +10,10 @@ namespace RedisCacheConsole.Product.Domain.Model
             this.Name = name;
             this.ListPrice = listPrice;
         }
+
+        public string ToJsonStringify()
+        {
+            return $"{{\"Name\":\"{this.Name}\",\"ListPrice\":{this.ListPrice}}}";
+        }
     }
 }   

@@ -1,8 +1,8 @@
-namespace Product.Application.dto
+namespace RedisCacheConsole.Product.Application.dto
 {
-    class ProductResponse
+    public class ProductResponse
     {
         public string Name { get; set; }
-        public string PriceList { get; set; }
+        public string ListPrice { get; set; }
     }
 }

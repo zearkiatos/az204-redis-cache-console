@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Product.Application.dto;
+using RedisCacheConsole.Product.Application.dto;
 
-namespace Product.Application.ports.output
+namespace RedisCacheConsole.Product.Application.ports.output
 {
     interface FetchProductOutputPort
     {
-        List<ProductResponse> FetchTopProductsWithCache();
+        Task FetchTopProductsWithCache(string cacheConnectionString, string cacheKey, string dataBaseConnectionString);
     }
 }
