@@ -1,0 +1,3 @@
+user default off
+
+user app on >Passw0rd_2026 ~app:* +get +set +setex +del +exists +expire +ttl +pttl +mget +mset +echo +ping
