@@ -17,7 +17,7 @@ namespace RedisCacheConsole.Tests.Product.Infrastructure.Repository
             var key = $"app:test:{Guid.NewGuid():N}";
             var value = "test-value";
 
-            await repository.Save(key, value);
+            await repository.Save(key, value, default);
             var fetchedValue = await repository.Get(key);
 
             Assert.NotNull(fetchedValue);

@@ -7,9 +7,9 @@ namespace RedisCacheConsole.Product.Infrastructure.Repository
     {
         private IDatabase cache;
 
-        public async Task Save(string key, string value)
+        public async Task Save(string key, string value, TimeSpan expiration)
         {
-            await this.cache.StringSetAsync(key, value);
+            await this.cache.StringSetAsync(key, value, default);
         }
 
         public async Task<string?> Get(string key)

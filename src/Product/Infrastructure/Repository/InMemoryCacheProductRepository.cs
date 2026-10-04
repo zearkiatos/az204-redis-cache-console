@@ -13,7 +13,7 @@ namespace RedisCacheConsole.Product.Infrastructure.Repository
             return Task.FromResult(product.Value);
         }
 
-        public Task Save(string key, string value)
+        public Task Save(string key, string value, TimeSpan expiration = default)
         {
             this.products.Add((Key: key, Value: value));
             return Task.CompletedTask;
